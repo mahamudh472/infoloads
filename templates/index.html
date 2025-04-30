@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Welcome to InfoLoads</h1>
+<p>This is the homepage.</p>
+
+{% for app in apps %}
+{{app.name}} - {{app.slug}}
+<img src="{{app.image.url}}" alt="">
+<a href="{{app.file.url}}" download>download</a>
+
+{% endfor %}
+{% endblock %}

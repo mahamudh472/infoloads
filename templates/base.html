@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Infoloads{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'output.css' %}">
+</head>
+<body>
+    <header>
+        {% block header %}
+        <!-- Header content goes here -->
+        {% endblock %}
+    </header>
+    <main>
+        {% block content %}
+        <!-- Main content goes here -->
+        {% endblock %}
+    </main>
+    <footer>
+        {% block footer %}
+        <!-- Footer content goes here -->
+        {% endblock %}
+    </footer>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
