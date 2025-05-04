@@ -10,7 +10,8 @@ def index(request):
     return render(request, 'index.html', context)
 
 def app_details(request, slug):
-    return render(request, 'downloads/app_details.html')
+    app = App.objects.get(slug=slug)
+    return render(request, 'downloads/app_details.html', {'app': app})
 
 def app_download(request, slug):
     pass

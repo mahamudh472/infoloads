@@ -5,9 +5,7 @@
 <p>This is the homepage.</p>
 
 {% for app in apps %}
-{{app.name}} - {{app.slug}}
-<img src="{{app.image.url}}" alt="">
-<a href="{{app.file.url}}" download>download</a>
+<a href="{% url "core:app_details" app.slug %}">{{app.name}}</a>
 
 {% endfor %}
 {% endblock %}
