@@ -1,8 +1,49 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block herosection %}
+
+<div id="herosection" style="background: url({% static "img/herosection_bg.jpg" %}); background-size:cover;">
+    <div class="max-w-[1000px] h-full mx-auto p-4 flex flex-col justify-evenly py-10 md:py-20 space-y-10">
+        <div class="text-white text-2xl md:text-5xl font-bold">
+            The best <span id="typewriter"></span> <br>
+            for you in one place
+        </div>
+        <div class="w-full relative">
+          <input type="text" class="w-full rounded-md bg-white text-base md:text-xl focus:outline-none p-4"
+          placeholder="What would you like to find today?">
+          <i class="fa fa-search absolute right-5 top-5 text-lg"></i>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/typeit@8.7.1/dist/index.umd.js"></script>
+<script>
+  new TypeIt("#typewriter", {
+    strings: ["Apps", "Games", "Mods", "Apks", "Applications"],
+    speed: 150,
+    deleteSpeed: 100,
+    breakLines: false,
+    loop: true,
+  }).go();
+
+</script>
+<style>
+  .ti-cursor {
+    display: inline-block;
+    animation: blink 0.7s infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+</style>
+
+    {% endblock herosection %}
 
 {% block content %}
-<h1>Welcome to InfoLoads</h1>
-<p>This is the homepage.</p>
+
+<div class="mt-10"></div>
 
 {% for app in apps %}
 <a href="{% url "core:app_details" app.slug %}">{{app.name}}</a>
