@@ -9,11 +9,11 @@
             The best <span id="typewriter"></span> <br>
             for you in one place
         </div>
-        <div class="w-full relative">
-          <input type="text" class="w-full rounded-md bg-white text-base md:text-xl focus:outline-none p-4"
-          placeholder="What would you like to find today?">
-          <i class="fa fa-search absolute right-5 top-5 text-lg"></i>
-        </div>
+        <form action="{% url 'core:search_results' %}" method="get" class="w-full relative" onsubmit="return validateSearch(this)">
+          <input type="text" class="searchInput w-full rounded-md bg-white text-base md:text-xl focus:outline-none p-4"
+          placeholder="What would you like to find today?" name="q" value="{{q}}">
+          <button class="fa fa-search absolute right-5 top-5 text-lg"></button>
+        </form>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/typeit@8.7.1/dist/index.umd.js"></script>

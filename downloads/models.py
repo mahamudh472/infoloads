@@ -2,6 +2,23 @@ from django.db import models
 from autoslug import AutoSlugField
 # Create your models here.
 
+class Platform(models.Model):
+    name = models.CharField(max_length=100)
+    slug = AutoSlugField(populate_from='name', unique=True)
+    description = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+    
+    def get_absolute_url(self):
+
+        return f"/platforms/{self.slug}/"
+    
+    def get_apps(self):
+        return App.objects.filter(platform=self)
+
+
 class Category(models.Model):
     name = models.CharField(max_length=100)
     parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
@@ -38,8 +55,6 @@ class App(models.Model):
     def __str__(self):
         return self.name
     
-
-
 class Download(models.Model):
     app = models.ForeignKey(App, on_delete=models.CASCADE)
     user_ip = models.GenericIPAddressField()
