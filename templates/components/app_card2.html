@@ -1,0 +1,22 @@
+<div class="py-3 flex justify-between items-center ">
+
+    <div class="flex gap-3 flex-col">
+        <img src="{{ app.image.url }}" class="h-full w-full p-4 border rounded-xl border-gray-300" alt="">
+
+        <div class="my-auto space-y-3">
+            <a href="{% url "core:app_details" app.slug %}" class="font-bold">{{ app.name }}</a>
+            <div class="text-sm">
+                <div class="flex justify-between">
+                    <span><i class="fa fa-star text-amber-500"></i> 5.0</span>
+                    <span class="text-emerald-500">{{ app.license }}</span>
+
+                </div>
+
+                <p class="text-neutral-400 whitespace-nowrap max-w-40 overflow-hidden text-ellipsis">{{ app.description }}</p>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
