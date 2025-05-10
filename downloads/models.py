@@ -14,9 +14,7 @@ class Platform(models.Model):
     def get_absolute_url(self):
 
         return f"/platforms/{self.slug}/"
-    
-    def get_apps(self):
-        return App.objects.filter(platform=self)
+
 
 
 class Category(models.Model):
@@ -26,7 +24,13 @@ class Category(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.name
+        full_path = [self.name]
+        k = self.parent
+        while k is not None:
+            full_path.append(k.name)
+            k = k.parent
+        return ' → '.join(full_path[::-1])
+
     def get_ancestors(self):
         ancestors = []
         category = self
@@ -40,9 +44,9 @@ class App(models.Model):
     slug = AutoSlugField(populate_from='name', unique=True)
     description = models.TextField()
     version = models.CharField(max_length=10)
-    file = models.FileField(upload_to='downloads/')
-    image = models.ImageField(upload_to='app_images/')
-    platform = models.CharField(max_length=50, blank=True, null=True)
+    file_url = models.URLField(blank=True, null=True)
+    image_url = models.URLField(blank=True, null=True)
+    platform = models.ForeignKey(Platform, on_delete=models.SET_NULL, blank=True, null=True)
     language = models.CharField(max_length=50, blank=True, null=True)
     license = models.CharField(max_length=50, blank=True, null=True)
     os = models.CharField(max_length=50, blank=True, null=True)
