@@ -1,10 +1,10 @@
 <div class="py-3 flex justify-between items-center ">
 
     <div class="flex gap-3 flex-col">
-        <img src="{{ app.image.url }}" class="h-full w-full p-4 border rounded-xl border-gray-300" alt="">
+        <img src="{{ app.image_url }}" class="h-full w-full p-4 border rounded-xl border-gray-300" alt="">
 
         <div class="my-auto space-y-3">
-            <a href="{% url "core:app_details" app.slug %}" class="font-bold">{{ app.name }}</a>
+            <a href="{% url "core:app_details" app.slug %}" class="font-bold block max-w-[160px] truncate">{{ app.name }}</a>
             <div class="text-sm">
                 <div class="flex justify-between">
                     <span><i class="fa fa-star text-amber-500"></i> 5.0</span>
