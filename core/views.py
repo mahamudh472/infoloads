@@ -1,5 +1,7 @@
-from django.shortcuts import render
-from downloads.models import App 
+from django.shortcuts import render, get_object_or_404, redirect
+from downloads.models import App, Platform, Category
+
+
 # Create your views here.
 
 def index(request):
@@ -11,11 +13,20 @@ def index(request):
     return render(request, 'index.html', context)
 
 def app_details(request, slug):
-    app = App.objects.get(slug=slug)
-    return render(request, 'downloads/app_details.html', {'app': app})
+    app = get_object_or_404(App, slug=slug)
+    suggestions = App.objects.exclude(id=app.id).order_by('?')[:10]
+    return render(request, 'downloads/app_details.html', {
+        'app': app,
+        'suggestions': suggestions,
+    })
 
 def app_download(request, slug):
-    pass
+    app = get_object_or_404(App, slug=slug)
+    app.downloads += 1
+    app.save()
+
+    return redirect(app.file_url)
+
 
 def search_results(request):
     q = request.GET.get('q', None)
@@ -26,3 +37,19 @@ def search_results(request):
         'apps': apps
     }
     return render(request, 'core/search_result.html', context)
+
+def category_details(request, category_name, platform=0):
+    if bool(platform):
+        category = Platform.objects.get(name=category_name)
+        apps = App.objects.filter(platform=category)
+        context = {
+            'category_name': category_name, 'apps': apps
+        }
+        return render(request, 'downloads/category_details.html', context)
+
+    category = Category.objects.get(name=category_name)
+    apps = Category.objects.filter(category=category)
+    context = {
+        'category_name': category_name, 'apps': apps
+    }
+    return render(request, 'downloads/category_details.html', context)
