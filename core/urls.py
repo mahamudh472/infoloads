@@ -11,12 +11,17 @@ urlpatterns = [
     path('category_details/<str:category_name>/<int:platform>', views.category_details, name="category_details")
 ]
 
+from django.conf import settings
 from django.views.static import serve
 from django.urls import re_path
 import os
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 urlpatterns += [
-    re_path(r'^monetag_[a-z0-9]+\.js$', serve, {
-        'document_root': os.path.join(BASE_DIR, 'static'),  # or wherever the file is
-    }),
+   re_path(r'^(.*\.js)$', serve, {
+    'document_root': os.path.join(BASE_DIR, 'static'),
+})
 ]
+
 
