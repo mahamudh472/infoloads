@@ -55,6 +55,7 @@ class App(models.Model):
     size = models.CharField(max_length=20)
     downloads = models.IntegerField(default=0)
     category = models.ForeignKey(Category, related_name="apps", blank=True, null=True, on_delete=models.SET_NULL)
+    app_type = models.CharField(max_length=50, choices=[('app', 'app'), ('game', 'game')])
 
     def __str__(self):
         return self.name

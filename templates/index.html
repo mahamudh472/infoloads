@@ -51,12 +51,14 @@
 
 
     <div class="font-bold text-xl mt-10">
-        Trending games
+        Trending apps
     </div>
     <div class="overflow-x-scroll">
         <div class="grid grid-cols-6 gap-4  w-[1000px]">
             {% for app in apps %}
+                {% if app.app_type == "app" %}
                 {% include 'components/app_card2.html' %}
+                {% endif %}
             {% endfor %}
         </div>
     </div>
@@ -72,7 +74,10 @@
     <div class="overflow-x-scroll">
         <div class="grid grid-cols-6 gap-4  w-[1000px]">
             {% for app in apps %}
+                {{ app.type }}
+                {% if app.app_type == "game" %}
                 {% include 'components/app_card2.html' %}
+                {% endif %}
             {% endfor %}
         </div>
     </div>

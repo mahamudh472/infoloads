@@ -1,9 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from downloads.models import App, Platform, Category
+from django.http import JsonResponse
 
 
 # Create your views here.
 
+def cron_job_trigger(request):
+    return JsonResponse({'status': 'success'})
 def index(request):
     apps = App.objects.all()
     context = {
