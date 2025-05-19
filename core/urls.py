@@ -15,20 +15,14 @@ sitemaps_dict = {
     'downloads': AppDownloadSitemap,
     'categories': CategoryDetailSitemap,
 }
-from django.views.decorators.http import require_GET
-
-@require_GET
-def sitemap_view(request):
-    return sitemap(request, sitemaps=sitemaps_dict, content_type="application/xml")
 
 urlpatterns = [
     path('', views.index, name="index"),
-    path('refresh', views.cron_job_trigger, name="refresh"),
     path('apps/<str:slug>', views.app_details, name="app_details"),
     path('download/<str:slug>', views.app_download, name='app_download'),
     path('search', views.search_results, name="search_results"),
     path('category_details/<str:category_name>/<int:platform>', views.category_details, name="category_details"),
-    path("sitemap.xml", sitemap_view, name="sitemap"),
+    path("sitemap.xml", sitemap, {"sitemaps": sitemaps_dict}, name="sitemap"),
 ]
 
 
