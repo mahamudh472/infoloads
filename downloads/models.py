@@ -1,5 +1,6 @@
 from django.db import models
 from autoslug import AutoSlugField
+from django_ckeditor_5.fields import CKEditor5Field
 # Create your models here.
 
 class Platform(models.Model):
@@ -42,7 +43,8 @@ class Category(models.Model):
 class App(models.Model):
     name = models.CharField(max_length=100)
     slug = AutoSlugField(populate_from='name', unique=True)
-    description = models.TextField()
+    meta_description = models.TextField()
+    long_description = CKEditor5Field(config_name='default')
     version = models.CharField(max_length=10)
     file_url = models.URLField(blank=True, null=True)
     image_url = models.URLField(blank=True, null=True)
