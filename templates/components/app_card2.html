@@ -1,7 +1,7 @@
 <div class="py-3 flex justify-between items-center ">
 
     <div class="flex gap-3 flex-col">
-        <img src="{{ app.image_url }}" class="h-full w-full p-4 border rounded-xl border-gray-300" alt="">
+        <img src="{{ app.image_url }}" loading="lazy" class="h-full w-full p-4 border rounded-xl border-gray-300" alt="">
 
         <div class="my-auto space-y-3">
             <a href="{% url "core:app_details" app.slug %}" class="font-bold block max-w-[160px] truncate">{{ app.name }}</a>

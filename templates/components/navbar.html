@@ -30,9 +30,10 @@
 
     <!-- Nav menus (large screens only) -->
     <div class="hidden md:flex gap-4 ml-4 *:p-2 *:text-gray-700 *:text-base *:whitespace-nowrap">
-      <a href="#"><i class="fa fa-file-circle-plus"></i> Apps</a>
-      <a href="#"><i class="fa fa-gamepad"></i> Games</a>
-      <a href="#"><i class="fa fa-file-lines"></i> News</a>
+
+      <a href="{% url 'core:category_details' 'apps' 0 %}"><i class="fa fa-file-circle-plus"></i> Apps</a>
+      <a href="{% url 'core:category_details' 'games' 0 %}"><i class="fa fa-gamepad"></i> Games</a>
+      <a href="{% url 'core:news' %}"><i class="fa fa-file-lines"></i> News</a>
     </div>
   </div>
 
@@ -53,9 +54,12 @@
       <button id="close-sidebar" class="fa fa-times text-xl"></button>
     </div>
     <nav class="flex flex-col p-4 space-y-4 text-lg text-gray-700">
-      <a href="#" class="hover:text-blue-500"><i class="fa fa-file-circle-plus"></i> Apps</a>
-      <a href="#" class="hover:text-blue-500"><i class="fa fa-gamepad"></i> Games</a>
-      <a href="#" class="hover:text-blue-500"><i class="fa fa-file-lines"></i> News</a>
+        {% for platform in platforms %}
+            <a href="{% url 'core:category_details' platform.name 1 %}"><i class="fa fa-layer-group"></i> {{ platform.name }}</a>
+        {% endfor %}
+      <a href="{% url 'core:category_details' 'apps' 0 %}" class="hover:text-blue-500"><i class="fa fa-file-circle-plus"></i> Apps</a>
+      <a href="{% url 'core:category_details' 'games' 0 %}" class="hover:text-blue-500"><i class="fa fa-gamepad"></i> Games</a>
+      <a href="{% url 'core:news' %}" class="hover:text-blue-500"><i class="fa fa-file-lines"></i> News</a>
     </nav>
   </div>
   

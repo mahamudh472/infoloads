@@ -8,9 +8,11 @@ from django.http import JsonResponse
 def cron_job_trigger(request):
     return JsonResponse({'status': 'success'})
 def index(request):
-    apps = App.objects.all()
+    trending_apps = App.objects.filter(app_type="app")[:6]
+    trending_games = App.objects.filter(app_type="game")[:6]
     context = {
-        'apps': apps,
+        'trending_apps': trending_apps,
+        'trending_games': trending_games,
         'page_title': 'Home',
     }
     return render(request, 'index.html', context)
@@ -42,17 +44,23 @@ def search_results(request):
     return render(request, 'core/search_result.html', context)
 
 def category_details(request, category_name, platform=0):
-    if bool(platform):
+    if category_name == "apps":
+        apps = App.objects.filter(app_type='app')
+        category_name = ""
+        app_type = 'Apps'
+    elif category_name == "games":
+        apps = App.objects.filter(app_type="game")
+        category_name = ""
+        app_type = 'Games'
+    elif bool(platform):
         category = Platform.objects.get(name=category_name)
         apps = App.objects.filter(platform=category)
-        context = {
-            'category_name': category_name, 'apps': apps
-        }
-        return render(request, 'downloads/category_details.html', context)
-
-    category = Category.objects.get(name=category_name)
-    apps = Category.objects.filter(category=category)
+        app_type = False
+    else:
+        category = Category.objects.get(name=category_name)
+        apps = Category.objects.filter(category=category)
+        app_type = False
     context = {
-        'category_name': category_name, 'apps': apps
+        'category_name': category_name, 'apps': apps, 'app_type': app_type
     }
     return render(request, 'downloads/category_details.html', context)

@@ -5,6 +5,7 @@ from django.views.static import serve
 from django.urls import re_path
 import os
 from django.contrib.sitemaps.views import sitemap
+from django.views.generic import TemplateView
 from .sitemaps import AppDetailSitemap, AppDownloadSitemap, CategoryDetailSitemap, StaticViewSitemap
 
 app_name = "core"
@@ -24,6 +25,7 @@ urlpatterns = [
     path('search', views.search_results, name="search_results"),
     path('category_details/<str:category_name>/<int:platform>', views.category_details, name="category_details"),
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps_dict}, name="sitemap"),
+    path('news', TemplateView.as_view(template_name='news/index.html'), name="news")
 ]
 
 

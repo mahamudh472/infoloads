@@ -2,7 +2,7 @@
 <div class="border-b py-3 border-gray-300 flex justify-between items-center ">
 
     <div class="flex gap-3">
-        <img src="{{app.image_url}}" class="h-20 w-20" alt="">
+        <img src="{{app.image_url}}" loading="lazy" class="h-20 w-20" alt="">
 
         <div class="my-auto">
             <a href="{% url "core:app_details" app.slug %}" class="font-bold">{{app.name}}</a>
@@ -16,7 +16,7 @@
     </div>
 
     <div>
-        <a class="bg-emerald-600 hover:bg-emerald-700 text-white p-3 cursor-pointer rounded-md">Download</a>
+        <a class="bg-emerald-600 hover:bg-emerald-700 text-white p-3 cursor-pointer rounded-md" href="{% url 'core:app_details' app.slug %}">Download</a>
 
     </div>
     

@@ -65,7 +65,7 @@
                     <div class="flex mt-3 items-center gap-2">
                         <img src="{% static 'img/profile.jpeg' %}" class="h-10 w-10 rounded-full" alt=""/>
                         <a href="#" class="font-bold">Mahmud Hasan</a>
-                        <div class="text-neutral-700 text-sm">- Updated a year ago</div>
+                        <div class="text-neutral-700 text-sm">- Updated {{ app.updated_at|timesince }} ago</div>
                     </div>
 
                     <div class="mt-3 space-y-3">
