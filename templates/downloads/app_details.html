@@ -2,6 +2,7 @@
 {% load static %}
 {% block meta_tag %}
 	<meta name="description" content="{{ app.meta_description|default:app.long_description|striptags|truncatechars:150 }}">
+    <link rel="icon" type="image/png" href="{{ app.image_url }}">
 {% endblock %}
 {% block title %}
 {{ app.name }} Download for {{ app.platform }} - InfoLoads

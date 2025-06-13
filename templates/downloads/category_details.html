@@ -1,10 +1,15 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}
     {% if app_type %}
         {{ app_type }} - InfoLoads
         {% else %}
         {{ category_name }} apps - InfoLoads
     {% endif %}
+{% endblock %}
+{% block meta_tag %}
+    <meta name="description" content="Download the latest {{ app_type }} from InfoLoads. Safe, fast, and free downloads with detailed info, updates, and direct links.">
+    <link rel="icon" type="image/png" href="{% static 'img/InfoLoads_Logo.png' %}">
 {% endblock %}
 {% block content %}
 

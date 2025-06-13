@@ -1,6 +1,8 @@
 {% extends "base.html" %}
+{% load static %}
 {% block meta_tag %}
 	<meta name="description" content="Search results for '{{ query }}' on InfoLoads.">
+    <link rel="icon" type="image/png" href="{% static 'img/InfoLoads_Logo.png' %}">
 {% endblock %}
 {% block title %}
 Search results for "{{q}}"
