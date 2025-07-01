@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+{% block meta_tag %}
+	<meta name="description" content="Search results for '{{ query }}' on InfoLoads.">
+    <link rel="icon" type="image/png" href="{% static 'img/InfoLoads_Logo.png' %}">
+{% endblock %}
+{% block title %}
+Search results for "{{q}}"
+{% endblock %}
+{% block content %}
+
+<div class="font-bold text-2xl mt-4 border-b border-gray-300 pb-2">
+    Search results for "{{q}}"
+
+</div>
+{% if apps %}
+{% for app in apps %}
+{% include "components/app_card.html" %}
+{% endfor %}
+{% else %}
+<div class="p-4 my-2 font-bold text-red-600 border border-red-600 md:inline-block rounded-xl">
+    No search results found
+</div>
+<br>
+<a href="{% url "core:index" %}" class="text-sm text-blue-500 "> <i class="fa fa-arrow-left"></i> Back to home</a>
+{% endif %}
+
+{% endblock content %}
