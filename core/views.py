@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from downloads.models import App, Platform, Category
 from django.http import JsonResponse
+from django.core.paginator import Paginator
 
 
 # Create your views here.
@@ -37,9 +38,12 @@ def search_results(request):
     q = request.GET.get('q', None)
     apps = App.objects.filter(name__icontains=q)
 
+    paginator = Paginator(apps, 10)
+    page_num = request.GET.get('page', 1)
+    page_obj = paginator.get_page(int(page_num))
     context = {
         'q': q,
-        'apps': apps
+        'page_obj': page_obj
     }
     return render(request, 'core/search_result.html', context)
 
@@ -60,7 +64,13 @@ def category_details(request, category_name, platform=0):
         category = Category.objects.get(name=category_name)
         apps = Category.objects.filter(category=category)
         app_type = False
+
+    paginator = Paginator(apps, 10)
+    page_num = request.GET.get('page', 1)
+    page_obj = paginator.get_page(int(page_num))
     context = {
-        'category_name': category_name, 'apps': apps, 'app_type': app_type
+        'category_name': category_name,
+        'page_obj': page_obj,
+        'app_type': app_type
     }
     return render(request, 'downloads/category_details.html', context)

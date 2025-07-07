@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('DJANGO_SECRATE_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -140,7 +140,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT =  'staticfiles'
-STATICFILES_DIRS = [BASE_DIR, 'static']
+STATICFILES_DIRS = [BASE_DIR/ 'static']
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 MEDIA_URL = "media/"

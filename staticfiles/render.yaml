@@ -1,6 +1,0 @@
-services:
-  - type: web
-    name: 'infoloads'
-    buildCommand: "./build.sh"
-    env: python
-    startCommand: "gunicorn infoloads.wsgi:application"
