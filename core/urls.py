@@ -25,7 +25,8 @@ urlpatterns = [
     path('search', views.search_results, name="search_results"),
     path('category_details/<str:category_name>/<int:platform>', views.category_details, name="category_details"),
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps_dict}, name="sitemap"),
-    path('news', TemplateView.as_view(template_name='news/index.html'), name="news")
+    path('blog', views.blog_list, name="blogs"),
+    path('blog/<str:slug>', views.blog_details, name='blog_details')
 ]
 
 

@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from downloads.models import App, Platform, Category
 from django.http import JsonResponse
 from django.core.paginator import Paginator
+from core.models import Blog
 
 
 # Create your views here.
@@ -74,3 +75,18 @@ def category_details(request, category_name, platform=0):
         'app_type': app_type
     }
     return render(request, 'downloads/category_details.html', context)
+
+def blog_list(request):
+    blogs = Blog.objects.all()
+
+    context = {
+        'blogs': blogs
+    }
+    return render(request, 'news/blog_list.html', context)
+
+def blog_details(request, slug):
+    blog = get_object_or_404(Blog, slug=slug)
+    context = {
+        'blog': blog
+    }
+    return render(request, 'news/blog_details.html', context)

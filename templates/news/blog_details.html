@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+{{ blog.title }} - InfoLoads
+{% endblock %}
+
+{% block content %}
+    <div class="flex flex-col sm:flex-row ">
+    <div class="sm:w-8/12">
+    <!-- Blog Title -->
+    <h1 class="text-3xl font-bold mb-4 leading-tight text-gray-800">
+        {{ blog.title }}
+    </h1>
+
+    <!-- Meta Info -->
+    <div class="text-sm text-gray-500 mb-6">
+        Published on {{ blog.created_at|date:"F d, Y" }}
+        {% if blog.author %}
+            • By {{ blog.author }}
+        {% endif %}
+    </div>
+
+    <!-- Thumbnail -->
+    {% if blog.thumbnail %}
+    <div class="mb-6">
+        <img src="{{ blog.thumbnail.url }}"
+             alt="{{ blog.title }}"
+             class="w-full rounded-lg object-cover aspect-video shadow-sm">
+    </div>
+    {% endif %}
+
+    <!-- Blog Content -->
+    <div class="prose prose-lg max-w-none text-gray-800">
+        {{ blog.content|safe }}
+    </div>
+
+    <!-- Tags (optional) -->
+    {% if blog.tags.exists %}
+    <div class="mt-8">
+        <h2 class="text-sm font-semibold text-gray-600 mb-2">Tags:</h2>
+        <div class="flex flex-wrap gap-2">
+            {% for tag in blog.tags.all %}
+            <span class="text-xs bg-gray-100 px-2 py-1 rounded-full text-gray-700">{{ tag.name }}</span>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+    <div class="sm:w-4/12">dsd</div>
+    </div>
+
+{% endblock %}
