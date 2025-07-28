@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from downloads.models import App, Platform, Category
+from downloads.models import App, Platform, Category, Download
 from django.http import JsonResponse
 from django.core.paginator import Paginator
 from core.models import Blog
+from ipware import get_client_ip
 
 
 # Create your views here.
@@ -22,6 +23,7 @@ def index(request):
 def app_details(request, slug):
     app = get_object_or_404(App, slug=slug)
     suggestions = App.objects.exclude(id=app.id).order_by('?')[:10]
+    print(get_client_ip(request)[0])
     return render(request, 'downloads/app_details.html', {
         'app': app,
         'suggestions': suggestions,
@@ -31,6 +33,12 @@ def app_download(request, slug):
     app = get_object_or_404(App, slug=slug)
     app.downloads += 1
     app.save()
+
+    # Add download history
+    Download.objects.create(
+        app=app,
+        user_ip=get_client_ip(request)[0]
+    )
 
     return redirect(app.file_url)
 
