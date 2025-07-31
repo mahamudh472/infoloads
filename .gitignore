@@ -4,3 +4,4 @@
 .pyc
 data.json
 db.sqlite3
+app_data.json

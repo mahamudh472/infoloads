@@ -107,7 +107,7 @@ class AppViews(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 class Download(models.Model):
-    app = models.ForeignKey(App, on_delete=models.CASCADE)
+    app_version = models.ForeignKey(AppVersion, on_delete=models.CASCADE, related_name='downloads')
     user_ip = models.GenericIPAddressField()
     date_downloaded = models.DateTimeField(auto_now_add=True)
 

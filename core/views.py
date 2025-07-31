@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from downloads.models import App, Platform, Category, Download
+from downloads.models import App, Platform, Category, Download, AppVersion
 from django.http import JsonResponse
 from django.core.paginator import Paginator
 from core.models import Blog
@@ -20,27 +20,31 @@ def index(request):
     }
     return render(request, 'index.html', context)
 
-def app_details(request, slug):
+def app_details(request, slug, version=None):
     app = get_object_or_404(App, slug=slug)
+    if version:
+        app_version = get_object_or_404(AppVersion, app=app, version_name=version)
+    else:
+        app_version = AppVersion.objects.filter(app=app).last()
     suggestions = App.objects.exclude(id=app.id).order_by('?')[:10]
-    print(get_client_ip(request)[0])
+
     return render(request, 'downloads/app_details.html', {
         'app': app,
+        'app_version': app_version,
         'suggestions': suggestions,
     })
 
-def app_download(request, slug):
+def app_download(request, slug, version):
     app = get_object_or_404(App, slug=slug)
-    app.downloads += 1
-    app.save()
+    app_version = app.versions.get(version_name=version)
 
     # Add download history
     Download.objects.create(
-        app=app,
+        app_version=app_version,
         user_ip=get_client_ip(request)[0]
     )
 
-    return redirect(app.file_url)
+    return redirect(app_version.file_url)
 
 
 def search_results(request):

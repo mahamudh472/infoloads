@@ -33,7 +33,7 @@
                         <div class="flex gap-2 text-sm">
                             <div class="text-green-700">{{ app.licence }}</div>
                             <div>In {{ app.language }}</div>
-                            <div>V {{ app.version }}</div>
+                            <div>V {{ app_version.version_name }}</div>
                         </div>
                         <div class="text-neutral-600">
                             <i class="fa fa-star text-amber-400"></i> 4.3 (2343 <i class="fa fa-users text-xs"></i> )
@@ -42,7 +42,7 @@
                     </div>
                 </div>
 
-                <div class="" onclick="location.href=`{% url 'core:app_download' app.slug %}`">
+                <div class="" onclick="location.href=`{% url 'core:app_download' app.slug app_version.version_name %}`">
                     <div class="flex bg-emerald-600 hover:bg-emerald-700 text-white w-full lg:w-72 justify-between p-3 px-5 cursor-pointer rounded-xl items-center">
                         <div>
                             <div class="font-extrabold text-lg">Free download</div>
@@ -144,7 +144,7 @@
 
                         <div class="text-neutral-700 text-sm">
                             Downloads
-                            <div class="font-extrabold">{{ app.downloads }}</div>
+                            <div class="font-extrabold">{{ app_version.downloads.count }}</div>
                         </div>
                     </div>
                 </div>
