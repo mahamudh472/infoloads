@@ -23,7 +23,7 @@ class Command(BaseCommand):
                 file_url = item['fields']['file_url']
                 size = item['fields']['size']
 
-                platform_ = Platform.objects.get(pk=2)
+                platform_, created = Platform.objects.get_or_create(name="Android")
 
                 app = App.objects.create(
                     name=app_name,
