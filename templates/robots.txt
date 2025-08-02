@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /media/
+Disallow: /temp/
+Disallow: /*?bgn=
+Disallow: /*.otqow
+Disallow: /*.eta
+
+Sitemap: https://infoloads.com/sitemap.xml
