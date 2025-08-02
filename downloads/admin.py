@@ -19,14 +19,12 @@ class HasImageFilter(admin.SimpleListFilter):
         if self.value() == 'no':
             return queryset.filter(Q(image_url__isnull=True) | Q(image_url__exact=''))
 
-# class AppVersionInline(admin.StackedInline):
-#     model = AppVersion
-
 @admin.register(App)
 class AppAdmin(admin.ModelAdmin):
-    # inlines = [AppVersionInline]
-    extra = 1
     list_filter = [HasImageFilter]
+    search_fields = ['name']
+
+admin.site.register(AppVersion)
 
 admin.site.register(Category)
 admin.site.register(Review)
