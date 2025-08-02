@@ -6,14 +6,13 @@ from django.urls import re_path
 import os
 from django.contrib.sitemaps.views import sitemap
 from django.views.generic import TemplateView
-from .sitemaps import AppDetailSitemap, AppDownloadSitemap, CategoryDetailSitemap, StaticViewSitemap
+from .sitemaps import AppDetailSitemap, CategoryDetailSitemap, StaticViewSitemap
 
 app_name = "core"
 
 sitemaps_dict = {
     'static': StaticViewSitemap,
     'apps': AppDetailSitemap,
-    'downloads': AppDownloadSitemap,
     'categories': CategoryDetailSitemap,
 }
 

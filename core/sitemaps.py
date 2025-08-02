@@ -26,18 +26,6 @@ class AppDetailSitemap(Sitemap):
         return reverse("core:app_details", args=[obj.slug])
 
 
-# App Download URLs
-class AppDownloadSitemap(Sitemap):
-    changefreq = "monthly"
-    priority = 0.6
-
-    def items(self):
-        return App.objects.all()
-
-    def location(self, obj):
-        return reverse("core:app_download", args=[obj.slug])
-
-
 # Category + Platform URLs
 class CategoryDetailSitemap(Sitemap):
     changefreq = "weekly"
