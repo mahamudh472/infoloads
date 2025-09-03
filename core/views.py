@@ -4,7 +4,9 @@ from django.http import JsonResponse
 from django.core.paginator import Paginator
 from core.models import Blog
 from ipware import get_client_ip
-
+from django.views.decorators.csrf import csrf_exempt
+from django.core.files.storage import default_storage
+import uuid
 
 # Create your views here.
 
@@ -102,3 +104,12 @@ def blog_details(request, slug):
         'blog': blog
     }
     return render(request, 'news/blog_details.html', context)
+
+
+@csrf_exempt
+def custom_ckeditor_upload(request):
+    f = request.FILES.get("upload")
+    name = f.name or f"{uuid.uuid4().hex}.bin"
+    path = default_storage.save(f"uploads/{name}", f)
+    url = default_storage.url(path)
+    return JsonResponse({"url": url})

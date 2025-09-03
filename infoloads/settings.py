@@ -141,16 +141,38 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT =  'staticfiles'
 STATICFILES_DIRS = [BASE_DIR/ 'static']
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+# STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "media"
+
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+        "OPTIONS": {
+            "access_key": os.getenv("R2_ACCESS_KEY_ID"),
+            "secret_key": os.getenv("R2_SECRET_ACCESS_KEY"),
+            "bucket_name": os.getenv("R2_BUCKET_NAME"),
+            "endpoint_url": os.getenv("R2_CUSTOM_DOMAIN"),
+            "region_name": "auto",        # Cloudflare R2 needs a region
+            "signature_version": "s3v4",  # Force SigV4
+        },
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+CKEDITOR_5_UPLOAD_PATH = "uploads/"   # images will go here inside MEDIA_ROOT
+CKEDITOR_5_ALLOW_ALL_FILE_TYPES = False
+CKEDITOR_5_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"  # which is the django-storages backend defined in STORAGES
 
 customColorPalette = [
         {
@@ -184,7 +206,12 @@ CKEDITOR_5_CONFIGS = {
         'toolbar': {
             'items': ['heading', '|', 'bold', 'italic', 'link',
                       'bulletedList', 'numberedList', 'blockQuote', 'imageUpload', ],
-                    }
+                    },
+        'simpleUpload': {
+            'uploadUrl': '/ckeditor5/upload/',
+            # 'withCredentials': 'false',
+            # 'headers': { 'X-CSRF-TOKEN': 'CSRF-Token',
+            }
 
     },
     'extends': {
